@@ -12,7 +12,7 @@ import { Signer } from "@aws-amplify/core";
 import Location from "aws-sdk/clients/location";
 import awsconfig from './aws-exports';
 
-const mapName = "MyMapTest";
+const mapName = "my_map_app";
 
 Amplify.configure(awsconfig);
 
@@ -43,7 +43,7 @@ const transformRequest = (credentials) => (url, resourceType) => {
 function Search(props){
 
   const [place, setPlace] = useState('Helsinki');
- 
+
   const handleChange = (event) => {
     setPlace(event.target.value);
   }
@@ -52,7 +52,7 @@ function Search(props){
     event.preventDefault();
     props.searchPlace(place)
   }
-  
+
   return (
     <div className="container">
       <div className="input-group">
@@ -75,7 +75,7 @@ const App = () => {
   });
 
   const [client, setClient] = useState(null);
- 
+
 
   useEffect(() => {
     const fetchCredentials = async () => {
@@ -99,18 +99,18 @@ const App = () => {
   const searchPlace = (place) => {
 
     const params = {
-      IndexName: "MyPlaceIndex",
+      IndexName: "my_map_app",
       Text: place,
     };
 
     client.searchPlaceIndexForText(params, (err, data) => {
       if (err) console.error(err);
       if (data) {
- 
+
         const coordinates = data.Results[0].Place.Geometry.Point;
         setViewport({
           longitude: coordinates[0],
-          latitude: coordinates[1], 
+          latitude: coordinates[1],
           zoom: 10})
         return coordinates;
       }
@@ -121,10 +121,10 @@ const App = () => {
   return (
     <div>
       <header>
-        <h1>FooBar Maps</h1>
+        <h1>my_map_app</h1>
       </header>
        <div>
-        <Search searchPlace = {searchPlace} /> 
+        <Search searchPlace = {searchPlace} />
       </div>
       {credentials ? (
         <ReactMapGL
